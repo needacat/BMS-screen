@@ -57,6 +57,7 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { showAlert, showConfirm } from '../utils/modal.js'
 
 const props = defineProps({
     totalAlarms: {
@@ -111,7 +112,7 @@ const handleRefresh = () => {
 }
 
 // 显示系统日志
-const showSystemLog = () => {
+const showSystemLog = async () => {
     const logs = [
         '14:30:22 系统启动完成',
         '14:25:18 数据库备份成功',
@@ -121,7 +122,7 @@ const showSystemLog = () => {
         '14:00:00 定时数据归档'
     ]
 
-    alert('系统日志:\n\n' + logs.join('\n'))
+    await showAlert('系统日志:\n\n' + logs.join('\n'), '系统日志')
 }
 
 // 切换夜间模式
@@ -132,8 +133,9 @@ const toggleNightMode = () => {
 }
 
 // 紧急预案
-const handleEmergency = () => {
-    if (confirm('确定要启动紧急预案吗？')) {
+const handleEmergency = async () => {
+    const ok = await showConfirm('确定要启动紧急预案吗？', '确认')
+    if (ok) {
         emit('emergency')
     }
 }

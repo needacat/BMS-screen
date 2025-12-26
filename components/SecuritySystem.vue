@@ -120,6 +120,7 @@
 
 <script setup>
 import { ref, computed, watch } from 'vue'
+import { showAlert } from '../utils/modal.js'
 
 const props = defineProps({
     securityData: {
@@ -179,11 +180,11 @@ const floorDoors = computed(() => {
 })
 
 // 显示摄像头画面
-const showCameraFeed = (camera) => {
+const showCameraFeed = async (camera) => {
     if (camera.status === 'online') {
-        alert(`正在调取摄像头: ${camera.name}\n位置: ${camera.location}`)
+        await showAlert(`正在调取摄像头: ${camera.name}\n位置: ${camera.location}`, '摄像头')
     } else {
-        alert(`摄像头 ${camera.name} 处于离线状态`)
+        await showAlert(`摄像头 ${camera.name} 处于离线状态`, '摄像头离线')
     }
 }
 
@@ -308,17 +309,23 @@ watch(() => props.selectedFloor, () => {
     position: absolute;
     top: 8px;
     right: 8px;
-    width: 6px;
-    height: 6px;
+    width: 12px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
 }
 
 .camera-status.online i {
     color: #22c55e;
     animation: pulse 2s infinite;
+    font-size: 0.8rem;
 }
 
 .camera-status.offline i {
     color: #ef4444;
+    font-size: 0.8rem;
 }
 
 .camera-info {

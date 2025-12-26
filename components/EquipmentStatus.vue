@@ -95,6 +95,7 @@
 
 <script setup>
 import { ref, computed, watch } from 'vue'
+import { showAlert } from '../utils/modal.js'
 
 const props = defineProps({
     equipmentList: {
@@ -202,8 +203,9 @@ const getStatusText = (status) => {
 }
 
 // 显示设备详情
-const showEquipmentDetail = (equipment) => {
-    alert(`设备详情:\n名称: ${equipment.name}\n类型: ${getEquipmentTypeText(equipment.type)}\n楼层: ${equipment.floor}层\n状态: ${getStatusText(equipment.status)}\n最后维护: ${equipment.lastMaintenance}`)
+const showEquipmentDetail = async (equipment) => {
+    const msg = `设备详情:\n名称: ${equipment.name}\n类型: ${getEquipmentTypeText(equipment.type)}\n楼层: ${equipment.floor}层\n状态: ${getStatusText(equipment.status)}\n最后维护: ${equipment.lastMaintenance}`
+    await showAlert(msg, '设备详情')
 }
 
 // 监听楼层变化
@@ -220,17 +222,18 @@ watch(() => props.selectedFloor, () => {
 .equipment-content {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
     height: calc(100% - 48px);
 }
 
 .equipment-summary {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
+    gap: 6px;
     background: rgba(15, 23, 42, 0.5);
     border-radius: 6px;
-    padding: 10px;
+    padding: 6px;
+    flex-shrink: 0;
 }
 
 .summary-item {
@@ -243,7 +246,7 @@ watch(() => props.selectedFloor, () => {
 .summary-label {
     color: #94a3b8;
     font-size: 0.75rem;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
     white-space: nowrap;
 }
 
@@ -271,7 +274,7 @@ watch(() => props.selectedFloor, () => {
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 3px;
     padding-right: 4px;
     min-height: 0;
 }
@@ -347,19 +350,19 @@ watch(() => props.selectedFloor, () => {
 .maintenance-info h4 {
     color: white;
     font-size: 0.9rem;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
 }
 
 .maintenance-list {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 4px;
 }
 
 .maintenance-item {
     background: rgba(15, 23, 42, 0.5);
     border-radius: 6px;
-    padding: 8px 10px;
+    padding: 6px 8px;
 }
 
 .maintenance-title {

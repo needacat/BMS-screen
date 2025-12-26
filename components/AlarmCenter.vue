@@ -76,6 +76,7 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { showAlert, showConfirm, showPrompt } from '../utils/modal.js'
 
 const props = defineProps({
     alarms: {
@@ -182,8 +183,9 @@ const acknowledgeAlarm = (alarmId) => {
 }
 
 // 确认所有警报
-const acknowledgeAll = () => {
-    if (confirm('确认所有未处理报警？')) {
+const acknowledgeAll = async () => {
+    const ok = await showConfirm('确认所有未处理报警？', '确认')
+    if (ok) {
         unacknowledgedAlarms.value.forEach(alarm => {
             emit('acknowledge-alarm', alarm.id)
         })
@@ -196,17 +198,18 @@ const toggleAlarmDetail = (alarm) => {
 }
 
 // 分配任务
-const assignTask = (alarm) => {
-    const person = prompt('请输入处理人员姓名：', '维修组-张三')
-    if (person) {
-        alert(`已分配给：${person}`)
+const assignTask = async (alarm) => {
+    const person = await showPrompt('请输入处理人员姓名：', '分配任务', '维修组-张三')
+    if (person !== null && person !== undefined && person !== '') {
+        await showAlert(`已分配给：${person}`, '已分配')
         acknowledgeAlarm(alarm.id)
     }
 }
 
 // 忽略警报
-const ignoreAlarm = (alarmId) => {
-    if (confirm('确定要忽略此报警吗？')) {
+const ignoreAlarm = async (alarmId) => {
+    const ok = await showConfirm('确定要忽略此报警吗？', '确认')
+    if (ok) {
         acknowledgeAlarm(alarmId)
     }
 }

@@ -2,6 +2,16 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 
+// 提前创建并注册全局 Modal 实例，保证在任意组件调用 modal API 时可用
+import Modal from './components/Modal.vue'
+import { useModal } from './utils/modal.js'
+// 挂载一个独立的 modal 根节点到 body
+const modalRoot = document.createElement('div')
+document.body.appendChild(modalRoot)
+const modalApp = createApp(Modal)
+const modalInstance = modalApp.mount(modalRoot)
+useModal(modalInstance)
+
 // 创建Vue应用实例
 const app = createApp(App)
 

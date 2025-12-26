@@ -100,7 +100,7 @@
                         <div class="stat-value">{{ avgTemperature }}°C</div>
                         <div class="stat-trend" :class="tempTrendClass">
                             <i :class="tempTrendIcon"></i>
-                            {{ tempTrend }}°C
+                            {{ Number(tempTrend.toFixed(1)) }}°C
                         </div>
                     </div>
                 </div>
@@ -158,9 +158,7 @@ const floorRooms = ref([])
 const generateFloorRooms = () => {
     const rooms = []
     const roomTypes = ['meeting', 'office', 'public']
-    const roomCount = 16 // 固定为16个房间（4x4网格）
-    // 或者根据楼层设置不同数量
-    // const roomCount = props.selectedFloor === '1' ? 16 : 12
+    const roomCount = 16 // 8列x2行 = 16个房间
 
     for (let i = 1; i <= roomCount; i++) {
         const type = roomTypes[Math.floor(Math.random() * roomTypes.length)]
@@ -179,7 +177,7 @@ const generateFloorRooms = () => {
 watch(() => props.selectedFloor, () => {
     floorRooms.value = generateFloorRooms()
     avgTemperature.value = (20 + Math.random() * 5).toFixed(1)
-    tempTrend.value = (Math.random() - 0.5) * 2
+    tempTrend.value = Number(((Math.random() - 0.5) * 2).toFixed(1))
 }, { immediate: true })
 </script>
 
@@ -233,7 +231,7 @@ watch(() => props.selectedFloor, () => {
     min-height: 0;
     background: rgba(15, 23, 42, 0.5);
     border-radius: 6px;
-    padding: 8px;
+    padding: 0;
     margin-bottom: 8px;
     overflow: hidden;
     /* 防止内容溢出 */
@@ -241,25 +239,26 @@ watch(() => props.selectedFloor, () => {
 
 .plan-grid {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    gap: 3px;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 0;
+    width: 100%;
     height: 100%;
-    max-height: 100%;
-    /* 限制最大高度 */
+    overflow: hidden;
 }
 
 .plan-room {
     background: rgba(30, 41, 59, 0.7);
-    border-radius: 3px;
+    border-radius: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 0.5rem;
     transition: all 0.2s ease;
     cursor: pointer;
-    aspect-ratio: 1;
     min-width: 0;
+    min-height: 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .plan-room:hover {
@@ -462,9 +461,9 @@ watch(() => props.selectedFloor, () => {
     }
 
     .plan-grid {
-        grid-template-columns: repeat(6, 1fr);
-        grid-template-rows: repeat(3, 1fr);
-        gap: 5px;
+        grid-template-columns: repeat(8, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        gap: 0;
     }
 
     .building-stats {
@@ -487,7 +486,7 @@ watch(() => props.selectedFloor, () => {
 
     .plan-grid {
         grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: repeat(4, 1fr);
+        grid-template-rows: repeat(12, 1fr);
     }
 
     .floor-plan {
@@ -509,12 +508,12 @@ watch(() => props.selectedFloor, () => {
     }
 
     .plan-grid {
-        grid-template-columns: repeat(3, 1fr);
-        /* 手机端改为3列 */
-        grid-template-rows: repeat(5, 1fr);
-        /* 增加行数 */
-        gap: 2px;
-        /* 进一步减小间距 */
+        grid-template-columns: repeat(4, 1fr);
+        /* 手机端改为4列 */
+        grid-template-rows: repeat(4, 1fr);
+        /* 4 列 × 4 行 = 16 个房间 */
+        gap: 0;
+        /* 房间紧邻 */
     }
 
     .stat-card {

@@ -46,6 +46,7 @@
 
 <script setup>
 import { defineProps, defineEmits } from 'vue'
+import { showAlert } from '../utils/modal.js'
 
 const props = defineProps({
     buildingName: {
@@ -74,13 +75,13 @@ const getStatusText = (status) => {
     return statusMap[status] || '未知状态'
 }
 
-const handleExport = () => {
-    alert('数据导出功能正在开发中...')
+const handleExport = async () => {
+    await showAlert('数据导出功能正在开发中...', '提示')
     emit('export')
 }
 
-const handleSettings = () => {
-    alert('系统设置功能正在开发中...')
+const handleSettings = async () => {
+    await showAlert('系统设置功能正在开发中...', '提示')
     emit('settings')
 }
 </script>

@@ -33,6 +33,7 @@
 
 <script>
 import { ref, reactive, onMounted } from 'vue'
+import { showAlert, showConfirm } from './utils/modal.js'
 import BuildingHeader from './components/BuildingHeader.vue'
 import BuildingOverview from './components/BuildingOverview.vue'
 import EnergyManagement from './components/EnergyManagement.vue'
@@ -41,6 +42,7 @@ import EquipmentStatus from './components/EquipmentStatus.vue'
 import SecuritySystem from './components/SecuritySystem.vue'
 import AlarmCenter from './components/AlarmCenter.vue'
 import BuildingFooter from './components/BuildingFooter.vue'
+// Modal is mounted globally in main.js
 
 export default {
   name: 'App',
@@ -52,7 +54,8 @@ export default {
     EquipmentStatus,
     SecuritySystem,
     AlarmCenter,
-    BuildingFooter
+    BuildingFooter,
+
   },
   setup() {
     // 楼宇信息
@@ -61,6 +64,8 @@ export default {
     const systemMode = ref('auto')
     const lastUpdate = ref('')
     const selectedFloor = ref('1')
+
+    // Modal 已在 main.js 中全局挂载，无需本地引用
 
     // 楼层数据
     const floors = ['B2', 'B1', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
@@ -144,7 +149,7 @@ export default {
     }
 
     // 刷新数据
-    const refreshData = () => {
+    const refreshData = async () => {
       // 模拟数据更新
       buildingData.peopleCount = Math.floor(800 + Math.random() * 100)
       energyData.today = Math.floor(150 + Math.random() * 20)
@@ -156,12 +161,13 @@ export default {
       equipmentList[randomIndex].status = statuses[Math.floor(Math.random() * statuses.length)]
 
       updateLastUpdate()
-      alert('数据已刷新！')
+      await showAlert('数据已刷新！', '刷新')
     }
 
     // 触发紧急情况
-    const triggerEmergency = () => {
-      if (confirm('确定要触发紧急预案吗？')) {
+    const triggerEmergency = async () => {
+      const ok = await showConfirm('确定要触发紧急预案吗？', '紧急预案')
+      if (ok) {
         systemMode.value = 'emergency'
         systemStatus.value = 'alarm'
 
@@ -176,7 +182,7 @@ export default {
           acknowledged: false
         })
 
-        alert('紧急预案已启动！')
+        await showAlert('紧急预案已启动！', '已启动')
       }
     }
 
@@ -224,11 +230,11 @@ export default {
 
 <style scoped>
 .bms-dashboard {
-  min-height: 100vh;
-  padding: 12px;
+  min-height: 95vh;
+  padding: 8px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .floor-indicator {
@@ -289,8 +295,8 @@ export default {
   grid-template-rows: auto auto auto;
   gap: 12px;
   flex: 1;
-  margin-bottom: 12px;
-  min-height: 600px;
+  margin-bottom: 10px;
+  min-height: 560px;
 }
 
 /* 响应式设计 */
