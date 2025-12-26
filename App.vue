@@ -286,7 +286,7 @@ export default {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   /* 改为等宽三列 */
-  grid-template-rows: auto auto;
+  grid-template-rows: auto auto auto;
   gap: 12px;
   flex: 1;
   margin-bottom: 12px;

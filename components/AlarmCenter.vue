@@ -303,7 +303,7 @@ onUnmounted(() => {
 
 <style scoped>
 .alarm-center {
-    grid-column: span 2;
+    grid-column: span 1;
 }
 
 .alarm-content {
@@ -634,7 +634,7 @@ onUnmounted(() => {
 /* 响应式设计 */
 @media (max-width: 1400px) {
     .alarm-center {
-        grid-column: span 2;
+        grid-column: span 1;
     }
 
     .alarm-summary {
@@ -665,7 +665,7 @@ onUnmounted(() => {
 
 @media (max-width: 1200px) {
     .alarm-center {
-        grid-column: span 2;
+        grid-column: span 1;
     }
 }
 
