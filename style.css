@@ -1,0 +1,395 @@
+/* style.css - 更新间距设置 */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #e2e8f0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding: 0;
+  margin: 0;
+}
+
+/* 主容器 */
+.bms-dashboard {
+  padding: 16px;  /* 减少内边距 */
+  max-width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;  /* 减少间隙 */
+}
+
+/* 楼层指示器 */
+.floor-indicator {
+  display: flex;
+  align-items: center;
+  gap: 12px;  /* 减少间隙 */
+  margin-bottom: 8px;
+  padding: 10px 0;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.floor-btn {
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+  border-radius: 6px;
+  padding: 6px 12px;  /* 减少内边距 */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.85rem;  /* 减小字体 */
+  min-width: 50px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.floor-btn:hover {
+  background: rgba(51, 65, 85, 0.9);
+  transform: translateY(-1px);
+}
+
+.floor-btn.active {
+  background: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.5);
+}
+
+/* 卡片基础样式 */
+.bms-card {
+  background: rgba(30, 41, 59, 0.7);
+  border-radius: 10px;  /* 减小圆角 */
+  padding: 16px;  /* 减少内边距 */
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  overflow: hidden;
+}
+
+.bms-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;  /* 减少间距 */
+  padding-bottom: 12px;  /* 减少间距 */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-title {
+  font-size: 1.15rem;  /* 减小字体 */
+  font-weight: 600;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 8px;  /* 减少间隙 */
+}
+
+.card-title i {
+  color: #3b82f6;
+  font-size: 1rem;  /* 减小图标大小 */
+}
+
+/* 主网格布局 - 优化间距 */
+.main-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 14px;  /* 减少网格间隙 */
+  flex: 1;
+  margin-bottom: 16px;  /* 减少底部间距 */
+}
+
+/* 状态指示器 - 优化尺寸 */
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;  /* 减少间隙 */
+  font-size: 0.8rem;  /* 减小字体 */
+  padding: 3px 8px;  /* 减小内边距 */
+  border-radius: 15px;
+  font-weight: 500;
+}
+
+.status-normal {
+  background: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+}
+
+.status-warning {
+  background: rgba(245, 158, 11, 0.2);
+  color: #f59e0b;
+}
+
+.status-alarm {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+}
+
+.status-offline {
+  background: rgba(107, 114, 128, 0.2);
+  color: #6b7280;
+}
+
+/* 按钮样式 - 优化尺寸 */
+.btn {
+  background: rgba(59, 130, 246, 0.2);
+  color: #3b82f6;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 5px;  /* 减小圆角 */
+  padding: 6px 12px;  /* 减小内边距 */
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;  /* 减少间隙 */
+  transition: all 0.3s ease;
+  font-size: 0.85rem;  /* 减小字体 */
+}
+
+.btn:hover {
+  background: rgba(59, 130, 246, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+}
+
+.btn-primary:hover {
+  background: #2563eb;
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.5);
+}
+
+/* 数值显示 - 优化尺寸 */
+.value-display {
+  font-size: 1.7rem;  /* 减小字体 */
+  font-weight: 700;
+  color: white;
+  line-height: 1;
+}
+
+.value-unit {
+  font-size: 0.9rem;  /* 减小字体 */
+  color: #94a3b8;
+  margin-left: 4px;
+}
+
+/* 图表容器 - 优化高度 */
+.chart-container {
+  height: 180px;  /* 减小高度 */
+  width: 100%;
+  position: relative;
+}
+
+/* 环境传感器 - 优化间距 */
+.env-sensors {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;  /* 减少间隙 */
+}
+
+.env-sensor {
+  background: rgba(30, 41, 59, 0.9);
+  border-radius: 8px;  /* 减小圆角 */
+  padding: 12px;  /* 减小内边距 */
+  display: flex;
+  align-items: center;
+  gap: 12px;  /* 减少间隙 */
+}
+
+.sensor-icon {
+  width: 40px;  /* 减小尺寸 */
+  height: 40px;
+  border-radius: 8px;  /* 减小圆角 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;  /* 减小图标大小 */
+}
+
+.sensor-info {
+  flex: 1;
+}
+
+.sensor-label {
+  color: #94a3b8;
+  font-size: 0.8rem;  /* 减小字体 */
+  margin-bottom: 4px;  /* 减少间距 */
+}
+
+.sensor-value {
+  font-size: 1.3rem;  /* 减小字体 */
+  font-weight: 600;
+  color: white;
+}
+
+/* 页脚 - 优化尺寸 */
+.bms-footer {
+  background: rgba(15, 23, 42, 0.9);
+  border-radius: 8px;  /* 减小圆角 */
+  padding: 12px 16px;  /* 减小内边距 */
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;  /* 减少间隙 */
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;  /* 减少间隙 */
+  color: #94a3b8;
+  font-size: 0.85rem;  /* 减小字体 */
+}
+
+.footer-info-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;  /* 减少间隙 */
+}
+
+.footer-actions {
+  display: flex;
+  gap: 8px;  /* 减少间隙 */
+}
+
+/* 响应式设计优化 */
+@media (max-width: 1400px) {
+  .main-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+  }
+  
+  .bms-card:first-child {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 1200px) {
+  .bms-dashboard {
+    padding: 12px;
+    gap: 12px;
+  }
+  
+  .main-grid {
+    gap: 12px;
+  }
+  
+  .bms-card {
+    padding: 14px;
+  }
+  
+  .card-header {
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+  }
+  
+  .card-title {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .main-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  
+  .env-sensors {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  
+  .footer-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .bms-dashboard {
+    padding: 10px;
+    gap: 10px;
+  }
+  
+  .main-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, auto);
+    gap: 10px;
+  }
+  
+  .bms-card:first-child {
+    grid-column: span 1;
+  }
+  
+  .bms-footer {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+  
+  .floor-indicator {
+    gap: 8px;
+  }
+  
+  .floor-btn {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    min-width: 45px;
+  }
+  
+  .card-title {
+    font-size: 1rem;
+  }
+}
+
+/* 工具类 - 优化间距 */
+.mb-8 { margin-bottom: 8px; }
+.mb-10 { margin-bottom: 10px; }
+.mb-12 { margin-bottom: 12px; }
+.mt-8 { margin-top: 8px; }
+.mt-10 { margin-top: 10px; }
+.mt-12 { margin-top: 12px; }
+.gap-4 { gap: 4px; }
+.gap-6 { gap: 6px; }
+.gap-8 { gap: 8px; }
+
+/* 滚动条优化 */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.5);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.7);
+}
