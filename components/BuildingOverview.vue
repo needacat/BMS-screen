@@ -1,5 +1,5 @@
 <template>
-    <div class="bms-card">
+    <div class="bms-card building-overview">
         <div class="card-header">
             <h3 class="card-title">
                 <i class="fas fa-chart-pie"></i>
@@ -158,7 +158,9 @@ const floorRooms = ref([])
 const generateFloorRooms = () => {
     const rooms = []
     const roomTypes = ['meeting', 'office', 'public']
-    const roomCount = props.selectedFloor === '1' ? 16 : 12
+    const roomCount = 16 // 固定为16个房间（4x4网格）
+    // 或者根据楼层设置不同数量
+    // const roomCount = props.selectedFloor === '1' ? 16 : 12
 
     for (let i = 1; i <= roomCount; i++) {
         const type = roomTypes[Math.floor(Math.random() * roomTypes.length)]
@@ -182,27 +184,40 @@ watch(() => props.selectedFloor, () => {
 </script>
 
 <style scoped>
+.building-overview {
+    grid-column: span 1;
+}
+
 .overview-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 25px;
-    height: calc(100% - 60px);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: calc(100% - 48px);
+    overflow: hidden;
+    /* 防止内容溢出 */
 }
 
 .floor-plan {
     display: flex;
     flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    /* 重要：允许内容收缩 */
 }
 
 .floor-plan-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
+    /* 防止头部被压缩 */
 }
 
 .floor-plan-title {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     font-weight: 600;
     color: white;
 }
@@ -210,43 +225,50 @@ watch(() => props.selectedFloor, () => {
 .occupancy-rate {
     color: #3b82f6;
     font-weight: 600;
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
 .floor-plan-visual {
     flex: 1;
+    min-height: 0;
     background: rgba(15, 23, 42, 0.5);
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 15px;
+    border-radius: 6px;
+    padding: 8px;
+    margin-bottom: 8px;
+    overflow: hidden;
+    /* 防止内容溢出 */
 }
 
 .plan-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
-    gap: 8px;
+    gap: 3px;
     height: 100%;
+    max-height: 100%;
+    /* 限制最大高度 */
 }
 
 .plan-room {
     background: rgba(30, 41, 59, 0.7);
-    border-radius: 6px;
+    border-radius: 3px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
+    font-size: 0.6rem;
+    transition: all 0.2s ease;
     cursor: pointer;
+    aspect-ratio: 1;
+    min-width: 0;
 }
 
 .plan-room:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+    transform: scale(1.03);
+    box-shadow: 0 0 6px rgba(59, 130, 246, 0.3);
 }
 
 .plan-room.occupied {
-    opacity: 0.8;
+    opacity: 0.7;
 }
 
 .plan-room.meeting {
@@ -270,21 +292,26 @@ watch(() => props.selectedFloor, () => {
 .floor-legend {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 10px;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+    /* 防止图例被压缩 */
+    margin-top: auto;
+    /* 确保图例在底部 */
 }
 
 .legend-item {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 5px;
     color: #94a3b8;
-    font-size: 0.9rem;
+    font-size: 0.75rem;
 }
 
 .legend-color {
-    width: 12px;
-    height: 12px;
-    border-radius: 3px;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
 }
 
 .legend-color.meeting {
@@ -301,53 +328,82 @@ watch(() => props.selectedFloor, () => {
 
 .building-stats {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    flex-shrink: 0;
+    /* 防止统计卡片被压缩 */
+    margin-top: auto;
+    /* 确保统计卡片在底部 */
 }
 
 .stat-card {
     background: rgba(15, 23, 42, 0.5);
-    border-radius: 10px;
-    padding: 15px;
+    border-radius: 6px;
+    padding: 10px;
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
+    min-width: 0;
+    height: fit-content;
+    /* 根据内容自适应高度 */
 }
 
 .stat-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.3rem;
+    font-size: 1rem;
+    flex-shrink: 0;
 }
 
 .stat-info {
     flex: 1;
+    min-width: 0;
 }
 
 .stat-label {
     color: #94a3b8;
-    font-size: 0.9rem;
-    margin-bottom: 5px;
+    font-size: 0.75rem;
+    margin-bottom: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .stat-value {
-    font-size: 1.8rem;
+    font-size: 1.3rem;
     font-weight: 700;
     color: white;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
+    line-height: 1;
+}
+
+.progress-bar {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    margin: 6px 0;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 1s ease;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
 }
 
 .stat-trend {
-    font-size: 0.85rem;
-    padding: 3px 8px;
-    border-radius: 12px;
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 8px;
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 2px;
+    white-space: nowrap;
 }
 
 .trend-up {
@@ -360,24 +416,119 @@ watch(() => props.selectedFloor, () => {
     color: #ef4444;
 }
 
+.floor-info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.floor-label {
+    color: #94a3b8;
+    font-size: 0.8rem;
+}
+
+.floor-value {
+    color: #3b82f6;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* 响应式设计 */
+@media (max-width: 1400px) {
+    .overview-content {
+        gap: 10px;
+    }
+
+    .building-stats {
+        gap: 8px;
+    }
+
+    .stat-card {
+        padding: 8px;
+        gap: 8px;
+    }
+
+    .stat-value {
+        font-size: 1.2rem;
+    }
+}
+
 @media (max-width: 1200px) {
     .overview-content {
-        grid-template-columns: 1fr;
-        gap: 20px;
+        grid-template-columns: repeat(4, 1fr);
+        /* 统一为4列 */
+        grid-template-rows: repeat(4, 1fr);
+        gap: 3px;
     }
 
     .plan-grid {
         grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        gap: 5px;
+    }
+
+    .building-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
     }
 }
 
 @media (max-width: 768px) {
+    .overview-content {
+        flex-direction: column;
+    }
+
     .building-stats {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(4, 1fr);
+        /* 统一为4列 */
+        grid-template-rows: repeat(4, 1fr);
+        gap: 3px;
     }
 
     .plan-grid {
         grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+    }
+
+    .floor-plan {
+        order: 1;
+        /* 确保平面图在上方 */
+    }
+
+    .floor-plan-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .building-stats {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .plan-grid {
+        grid-template-columns: repeat(3, 1fr);
+        /* 手机端改为3列 */
+        grid-template-rows: repeat(5, 1fr);
+        /* 增加行数 */
+        gap: 2px;
+        /* 进一步减小间距 */
+    }
+
+    .stat-card {
+        padding: 6px;
+    }
+
+    .stat-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+    }
+
+    .stat-value {
+        font-size: 1.1rem;
     }
 }
 </style>

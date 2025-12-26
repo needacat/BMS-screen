@@ -1,5 +1,5 @@
 <template>
-    <div class="bms-card">
+    <div class="bms-card equipment-status">
         <div class="card-header">
             <h3 class="card-title">
                 <i class="fas fa-cogs"></i>
@@ -26,15 +26,15 @@
                 </div>
                 <div class="summary-item">
                     <div class="summary-label">在线设备</div>
-                    <div class="summary-value" style="color: #22c55e;">{{ onlineEquipment }}</div>
+                    <div class="summary-value online">{{ onlineEquipment }}</div>
                 </div>
                 <div class="summary-item">
                     <div class="summary-label">报警设备</div>
-                    <div class="summary-value" style="color: #ef4444;">{{ alarmEquipment }}</div>
+                    <div class="summary-value alarm">{{ alarmEquipment }}</div>
                 </div>
                 <div class="summary-item">
                     <div class="summary-label">健康度</div>
-                    <div class="summary-value" style="color: #3b82f6;">{{ healthRate }}%</div>
+                    <div class="summary-value health">{{ healthRate }}%</div>
                 </div>
             </div>
 
@@ -213,20 +213,24 @@ watch(() => props.selectedFloor, () => {
 </script>
 
 <style scoped>
+.equipment-status {
+    grid-column: span 1;
+}
+
 .equipment-content {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    height: calc(100% - 60px);
+    gap: 12px;
+    height: calc(100% - 48px);
 }
 
 .equipment-summary {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
     background: rgba(15, 23, 42, 0.5);
-    border-radius: 10px;
-    padding: 15px;
+    border-radius: 6px;
+    padding: 10px;
 }
 
 .summary-item {
@@ -238,14 +242,28 @@ watch(() => props.selectedFloor, () => {
 
 .summary-label {
     color: #94a3b8;
-    font-size: 0.85rem;
-    margin-bottom: 5px;
+    font-size: 0.75rem;
+    margin-bottom: 4px;
+    white-space: nowrap;
 }
 
 .summary-value {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 700;
     color: white;
+    line-height: 1;
+}
+
+.summary-value.online {
+    color: #22c55e;
+}
+
+.summary-value.alarm {
+    color: #ef4444;
+}
+
+.summary-value.health {
+    color: #3b82f6;
 }
 
 .equipment-list {
@@ -253,137 +271,209 @@ watch(() => props.selectedFloor, () => {
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 6px;
+    padding-right: 4px;
+    min-height: 0;
 }
 
 .equipment-item {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
     background: rgba(15, 23, 42, 0.5);
-    border-radius: 10px;
-    padding: 12px 15px;
+    border-radius: 6px;
+    padding: 8px 10px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
+    min-height: 0;
 }
 
 .equipment-item:hover {
     background: rgba(30, 41, 59, 0.7);
-    transform: translateX(5px);
+    transform: translateX(3px);
 }
 
 .equipment-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
     background: rgba(59, 130, 246, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: #3b82f6;
+    flex-shrink: 0;
 }
 
 .equipment-info {
     flex: 1;
+    min-width: 0;
 }
 
 .equipment-name {
     color: white;
     font-weight: 600;
-    margin-bottom: 4px;
-    font-size: 0.95rem;
+    margin-bottom: 3px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .equipment-meta {
     display: flex;
-    gap: 15px;
+    gap: 12px;
     color: #94a3b8;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
 }
 
 .equipment-floor {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 3px;
 }
 
 .equipment-floor i {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
 }
 
 .equipment-status {
-    min-width: 70px;
+    min-width: 60px;
     text-align: center;
+    flex-shrink: 0;
 }
 
 .maintenance-info h4 {
     color: white;
-    font-size: 1rem;
-    margin-bottom: 15px;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
 }
 
 .maintenance-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
 }
 
 .maintenance-item {
     background: rgba(15, 23, 42, 0.5);
-    border-radius: 10px;
-    padding: 12px 15px;
+    border-radius: 6px;
+    padding: 8px 10px;
 }
 
 .maintenance-title {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     color: #94a3b8;
-    font-size: 0.9rem;
-    margin-bottom: 8px;
+    font-size: 0.8rem;
+    margin-bottom: 6px;
 }
 
 .maintenance-title i {
     color: #f59e0b;
+    font-size: 0.9rem;
 }
 
 .maintenance-detail {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
 }
 
 .maintenance-detail span:first-child {
     color: white;
     font-weight: 500;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
 }
 
 .maintenance-date {
     color: #3b82f6;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .filter-selector {
     background: rgba(30, 41, 59, 0.7);
     color: white;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 6px;
-    padding: 5px 12px;
-    font-size: 0.9rem;
+    border-radius: 5px;
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    height: 26px;
+}
+
+/* 滚动条样式 */
+.equipment-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.equipment-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 2px;
+}
+
+.equipment-list::-webkit-scrollbar-thumb {
+    background: rgba(59, 130, 246, 0.5);
+    border-radius: 2px;
+}
+
+/* 响应式设计 */
+@media (max-width: 1400px) {
+    .equipment-summary {
+        gap: 6px;
+        padding: 8px;
+    }
+
+    .summary-value {
+        font-size: 1.2rem;
+    }
+
+    .summary-label {
+        font-size: 0.7rem;
+    }
 }
 
 @media (max-width: 768px) {
     .equipment-summary {
         grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
+        gap: 10px;
     }
 
     .equipment-meta {
         flex-direction: column;
-        gap: 5px;
+        gap: 3px;
+    }
+
+    .maintenance-detail {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    .equipment-item {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .equipment-info {
+        width: 100%;
+    }
+
+    .equipment-meta {
+        justify-content: center;
     }
 }
 </style>

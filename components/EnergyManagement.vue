@@ -1,5 +1,5 @@
 <template>
-  <div class="bms-card">
+  <div class="bms-card energy-management">
     <div class="card-header">
       <h3 class="card-title">
         <i class="fas fa-bolt"></i>
@@ -153,10 +153,10 @@ const initChart = () => {
           formatter: '{b}<br/>能耗: {c} kWh'
         },
         grid: {
-          left: '3%',
-          right: '3%',
-          bottom: '10%',
-          top: '10%',
+          left: '2%',
+          right: '2%',
+          bottom: '8%',
+          top: '8%',
           containLabel: true
         },
         xAxis: {
@@ -169,14 +169,15 @@ const initChart = () => {
           },
           axisLabel: {
             color: 'rgba(255, 255, 255, 0.7)',
-            fontSize: 11
+            fontSize: 10
           }
         },
         yAxis: {
           type: 'value',
           name: 'kWh',
           nameTextStyle: {
-            color: 'rgba(255, 255, 255, 0.7)'
+            color: 'rgba(255, 255, 255, 0.7)',
+            fontSize: 10
           },
           axisLine: {
             lineStyle: {
@@ -184,7 +185,8 @@ const initChart = () => {
             }
           },
           axisLabel: {
-            color: 'rgba(255, 255, 255, 0.7)'
+            color: 'rgba(255, 255, 255, 0.7)',
+            fontSize: 10
           },
           splitLine: {
             lineStyle: {
@@ -207,10 +209,10 @@ const initChart = () => {
             ])
           },
           lineStyle: {
-            width: 3
+            width: 2
           },
           symbol: 'circle',
-          symbolSize: 6
+          symbolSize: 4
         }]
       }
 
@@ -253,46 +255,51 @@ watch(timeRange, updateChart)
 </script>
 
 <style scoped>
+.energy-management {
+  grid-column: span 1;
+}
+
 .energy-content {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  height: calc(100% - 60px);
+  gap: 12px;
+  height: calc(100% - 48px);
 }
 
 .energy-summary {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 10px;
 }
 
 .energy-total,
 .energy-today {
   background: rgba(15, 23, 42, 0.5);
-  border-radius: 10px;
-  padding: 15px;
+  border-radius: 6px;
+  padding: 10px;
 }
 
 .energy-label {
   color: #94a3b8;
-  font-size: 0.9rem;
-  margin-bottom: 10px;
+  font-size: 0.8rem;
+  margin-bottom: 8px;
 }
 
 .energy-value {
   display: flex;
   align-items: baseline;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .value-display {
-  font-size: 2rem;
+  font-size: 1.4rem;
   font-weight: 700;
   color: white;
+  line-height: 1;
 }
 
 .value-unit {
-  font-size: 1rem;
+  font-size: 0.85rem;
   color: #94a3b8;
   margin-left: 4px;
 }
@@ -300,10 +307,10 @@ watch(timeRange, updateChart)
 .energy-trend {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 0.85rem;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 10px;
+  font-size: 0.75rem;
 }
 
 .trend-up {
@@ -317,20 +324,20 @@ watch(timeRange, updateChart)
 }
 
 .energy-progress {
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 .progress-bar {
-  height: 8px;
+  height: 6px;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
+  border-radius: 3px;
   overflow: hidden;
-  margin: 10px 0;
+  margin: 6px 0;
 }
 
 .progress-fill {
   height: 100%;
-  border-radius: 4px;
+  border-radius: 3px;
   transition: width 1s ease;
   background: linear-gradient(90deg, #3b82f6, #8b5cf6);
 }
@@ -338,32 +345,34 @@ watch(timeRange, updateChart)
 .progress-label {
   display: flex;
   justify-content: space-between;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   color: #94a3b8;
-  margin-top: 5px;
+  margin-top: 3px;
 }
 
 .chart-container {
   flex: 1;
-  min-height: 180px;
+  min-height: 120px;
+  /* 减小高度 */
+  margin: 4px 0;
 }
 
 .energy-distribution h4 {
   color: white;
-  font-size: 1rem;
-  margin-bottom: 15px;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
 }
 
 .distribution-items {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 }
 
 .distribution-item {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .distribution-header {
@@ -375,26 +384,26 @@ watch(timeRange, updateChart)
 .distribution-name {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   color: #e2e8f0;
-  font-size: 0.9rem;
+  font-size: 0.75rem;
 }
 
 .distribution-dot {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
 }
 
 .distribution-percentage {
   color: #3b82f6;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .distribution-value {
   color: #94a3b8;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   text-align: right;
 }
 
@@ -402,15 +411,36 @@ watch(timeRange, updateChart)
   background: rgba(30, 41, 59, 0.7);
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-  padding: 5px 12px;
-  font-size: 0.9rem;
+  border-radius: 5px;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  height: 28px;
+}
+
+/* 响应式设计 */
+@media (max-width: 1400px) {
+  .energy-summary {
+    gap: 8px;
+  }
+
+  .energy-total,
+  .energy-today {
+    padding: 8px;
+  }
+
+  .value-display {
+    font-size: 1.3rem;
+  }
 }
 
 @media (max-width: 768px) {
   .energy-summary {
     grid-template-columns: 1fr;
-    gap: 15px;
+    gap: 8px;
+  }
+
+  .chart-container {
+    min-height: 120px;
   }
 }
 </style>

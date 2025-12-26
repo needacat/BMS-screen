@@ -1,5 +1,5 @@
 <template>
-  <div class="bms-card">
+  <div class="bms-card environmental-control">
     <div class="card-header">
       <h3 class="card-title">
         <i class="fas fa-leaf"></i>
@@ -263,65 +263,71 @@ const aqiClass = computed(() => {
 </script>
 
 <style scoped>
+.environmental-control {
+  grid-column: span 1;
+}
+
 .environment-content {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  height: calc(100% - 60px);
+  gap: 12px;
+  height: calc(100% - 48px);
 }
 
 .env-sensors {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
+  gap: 8px;
 }
 
 .env-sensor {
   background: rgba(30, 41, 59, 0.9);
-  border-radius: 10px;
-  padding: 15px;
+  border-radius: 6px;
+  padding: 10px;
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
 }
 
 .sensor-icon {
-  width: 50px;
-  height: 50px;
-  border-radius: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: 1.1rem;
 }
 
 .sensor-info {
   flex: 1;
+  min-width: 0;
 }
 
 .sensor-label {
   color: #94a3b8;
-  font-size: 0.9rem;
-  margin-bottom: 5px;
+  font-size: 0.75rem;
+  margin-bottom: 4px;
 }
 
 .sensor-value {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: white;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
+  line-height: 1;
 }
 
 .sensor-control {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-top: 10px;
+  gap: 8px;
+  margin-top: 6px;
 }
 
 .control-btn {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   background: rgba(59, 130, 246, 0.2);
   border: 1px solid rgba(59, 130, 246, 0.3);
@@ -330,12 +336,13 @@ const aqiClass = computed(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  font-size: 0.7rem;
+  transition: all 0.2s ease;
 }
 
 .control-btn:hover:not(:disabled) {
   background: rgba(59, 130, 246, 0.3);
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .control-btn:disabled {
@@ -344,75 +351,77 @@ const aqiClass = computed(() => {
 }
 
 .control-label {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   color: #94a3b8;
-  min-width: 80px;
+  min-width: 70px;
   text-align: center;
 }
 
 .light-control {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   width: 100%;
 }
 
 .light-control i {
   color: #f59e0b;
+  font-size: 0.9rem;
 }
 
 .light-slider {
   flex: 1;
-  height: 6px;
+  height: 5px;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
+  border-radius: 2px;
   outline: none;
   -webkit-appearance: none;
 }
 
 .light-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: #f59e0b;
   cursor: pointer;
 }
 
 .sensor-status {
-  margin-top: 8px;
+  margin-top: 4px;
 }
 
 .air-quality {
   background: rgba(15, 23, 42, 0.5);
-  border-radius: 10px;
-  padding: 15px;
+  border-radius: 6px;
+  padding: 10px;
 }
 
 .air-quality h4 {
   color: white;
-  font-size: 1rem;
-  margin-bottom: 15px;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
 }
 
 .aqi-display {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .aqi-value {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 700;
   color: white;
+  line-height: 1;
 }
 
 .aqi-level {
-  padding: 6px 15px;
-  border-radius: 20px;
+  padding: 4px 10px;
+  border-radius: 15px;
   font-weight: 500;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .aqi-excellent {
@@ -448,55 +457,56 @@ const aqiClass = computed(() => {
 .aqi-breakdown {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: 8px;
 }
 
 .aqi-item {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 3px;
 }
 
 .aqi-label {
   color: #94a3b8;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
 }
 
 .aqi-number {
   color: #e2e8f0;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 500;
 }
 
 .ventilation-control h4 {
   color: white;
-  font-size: 1rem;
-  margin-bottom: 15px;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
 }
 
 .ventilation-status {
   background: rgba(15, 23, 42, 0.5);
-  border-radius: 10px;
-  padding: 15px;
+  border-radius: 6px;
+  padding: 10px;
 }
 
 .ventilation-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .ventilation-label {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   color: #e2e8f0;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .ventilation-label i {
   color: #3b82f6;
+  font-size: 0.9rem;
 }
 
 .ventilation-rate {
@@ -507,44 +517,62 @@ const aqiClass = computed(() => {
 
 .rate-label {
   color: #94a3b8;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .rate-value {
   color: white;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 600;
 }
 
 .rate-control {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .mode-selector {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .mode-label {
   color: #94a3b8;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .mode-selector select {
   background: rgba(30, 41, 59, 0.7);
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-  padding: 5px 12px;
-  font-size: 0.9rem;
+  border-radius: 5px;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  height: 26px;
+}
+
+/* 响应式设计 */
+@media (max-width: 1400px) {
+  .env-sensors {
+    gap: 6px;
+  }
+
+  .env-sensor {
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .sensor-value {
+    font-size: 1.1rem;
+  }
 }
 
 @media (max-width: 1024px) {
   .env-sensors {
     grid-template-columns: 1fr;
+    gap: 6px;
   }
 
   .aqi-breakdown {
@@ -555,6 +583,16 @@ const aqiClass = computed(() => {
 @media (max-width: 768px) {
   .aqi-breakdown {
     grid-template-columns: 1fr;
+  }
+
+  .ventilation-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .ventilation-rate {
+    width: 100%;
   }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="bms-card">
+    <div class="bms-card security-system">
         <div class="card-header">
             <h3 class="card-title">
                 <i class="fas fa-shield-alt"></i>
@@ -79,8 +79,7 @@
                                 <span>摄像头 {{ camera.id }}</span>
                             </div>
                             <div class="camera-status" :class="camera.status">
-                                <i v-if="camera.status === 'online'" class="fas fa-circle"></i>
-                                <i v-if="camera.status === 'offline'" class="fas fa-circle"></i>
+                                <i class="fas fa-circle"></i>
                             </div>
                         </div>
                         <div class="camera-info">
@@ -201,79 +200,87 @@ watch(() => props.selectedFloor, () => {
 </script>
 
 <style scoped>
+.security-system {
+    grid-column: span 1;
+}
+
 .security-content {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    height: calc(100% - 60px);
+    gap: 12px;
+    height: calc(100% - 48px);
 }
 
 .security-overview {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
+    gap: 10px;
 }
 
 .overview-item {
     background: rgba(15, 23, 42, 0.5);
-    border-radius: 10px;
-    padding: 15px;
+    border-radius: 6px;
+    padding: 10px;
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
 }
 
 .overview-icon {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
+    flex-shrink: 0;
 }
 
 .overview-info {
     flex: 1;
+    min-width: 0;
 }
 
 .overview-value {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     font-weight: 700;
     color: white;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
+    line-height: 1;
 }
 
 .overview-label {
     color: #94a3b8;
-    font-size: 0.9rem;
-    margin-bottom: 8px;
+    font-size: 0.75rem;
+    margin-bottom: 6px;
+    white-space: nowrap;
 }
 
 .camera-grid h4,
 .access-control h4 {
     color: white;
-    font-size: 1rem;
-    margin-bottom: 15px;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
 }
 
 .cameras {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    margin-bottom: 20px;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
 }
 
 .camera-item {
     background: rgba(15, 23, 42, 0.5);
-    border-radius: 10px;
+    border-radius: 6px;
     overflow: hidden;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
 }
 
 .camera-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .camera-preview {
     position: relative;
-    height: 100px;
+    height: 80px;
     background: rgba(30, 41, 59, 0.8);
     display: flex;
     align-items: center;
@@ -284,21 +291,25 @@ watch(() => props.selectedFloor, () => {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     color: #94a3b8;
 }
 
 .camera-placeholder i {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: #3b82f6;
+}
+
+.camera-placeholder span {
+    font-size: 0.75rem;
 }
 
 .camera-status {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 8px;
-    height: 8px;
+    top: 8px;
+    right: 8px;
+    width: 6px;
+    height: 6px;
 }
 
 .camera-status.online i {
@@ -311,71 +322,79 @@ watch(() => props.selectedFloor, () => {
 }
 
 .camera-info {
-    padding: 12px;
+    padding: 8px;
 }
 
 .camera-name {
     color: white;
     font-weight: 600;
-    margin-bottom: 5px;
-    font-size: 0.95rem;
+    margin-bottom: 4px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .camera-location {
     color: #94a3b8;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
 }
 
 .access-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
 }
 
 .access-item {
     background: rgba(15, 23, 42, 0.5);
-    border-radius: 10px;
-    padding: 12px 15px;
+    border-radius: 6px;
+    padding: 8px 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
 }
 
 .door-info {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+    flex: 1;
+    min-width: 0;
 }
 
 .door-name {
     color: white;
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .btn-small {
-    padding: 5px 12px;
-    font-size: 0.85rem;
+    padding: 4px 10px;
+    font-size: 0.75rem;
+    white-space: nowrap;
 }
 
 .security-mode {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
 }
 
 .mode-label {
     color: #94a3b8;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 }
 
 .mode-value {
-    padding: 4px 12px;
-    border-radius: 12px;
-    font-size: 0.85rem;
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-size: 0.8rem;
     font-weight: 500;
 }
 
@@ -391,19 +410,62 @@ watch(() => props.selectedFloor, () => {
     border: 1px solid rgba(34, 197, 94, 0.3);
 }
 
-@media (max-width: 1200px) {
-    .security-overview {
-        grid-template-columns: repeat(2, 1fr);
+@keyframes pulse {
+    0% {
+        opacity: 1;
     }
 
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* 响应式设计 */
+@media (max-width: 1400px) {
+    .security-overview {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .overview-item {
+        padding: 8px;
+        gap: 8px;
+    }
+
+    .overview-value {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 1200px) {
     .cameras {
         grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .camera-preview {
+        height: 70px;
     }
 }
 
 @media (max-width: 768px) {
     .security-overview {
         grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .access-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .door-control {
+        align-self: flex-end;
     }
 }
 </style>
