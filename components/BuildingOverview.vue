@@ -241,7 +241,7 @@ watch(() => props.selectedFloor, () => {
 
 .plan-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(4, 1fr);
     gap: 3px;
     height: 100%;
@@ -255,7 +255,7 @@ watch(() => props.selectedFloor, () => {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.6rem;
+    font-size: 0.5rem;
     transition: all 0.2s ease;
     cursor: pointer;
     aspect-ratio: 1;
